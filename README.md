@@ -17,6 +17,10 @@ https://le-nn.github.io/blazor-transition-group/
 dotnet add package BlazorTransitionGroup
 ```
 
+## Supported platform
+
+.NET 7 or higher
+
 ## Components
 
 ### Transition
