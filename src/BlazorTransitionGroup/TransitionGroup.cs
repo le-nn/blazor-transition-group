@@ -2,16 +2,23 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.RenderTree;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace BlazorTransitionGroup;
 
+/// <summary>
+/// The <TransitionGroup> component manages a set of transition components <Transition> in a list.
+/// </summary>
 public class TransitionGroup : ComponentBase, IDisposable {
     RenderChildrenContext? _lastContext;
     TransitionGroupContext _animatableComponentContext = new();
     ThrottledExecutor<byte> _executor = new();
     IDisposable _subscription;
 
+    /// <summary>
+    /// The render fragment for ChildContent.
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 

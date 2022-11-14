@@ -16,29 +16,56 @@
     [CascadingParameter]
     TransitionGroupContext? AnimatableComponentContext { get; set; }
 
+    /// <summary>
+    /// The Render fragment for child content.
+    /// </summary>
     [Parameter]
     public RenderFragment<TransitionState>? ChildContent { get; set; }
 
+    /// <summary>
+    /// The event callback that fired when Transition is Began
+    /// </summary>
     [Parameter]
     public EventCallback TransitionBegan { get; set; }
 
+    /// <summary>
+    /// The event callback that fired when Transition is Completed
+    /// </summary>
     [Parameter]
     public EventCallback TransitionCompleted { get; set; }
 
+    /// <summary>
+    /// The milliseconds of deley time that animation begin
+    /// </summary>
     [Parameter]
     public virtual int Delay { get; set; } = 0;
 
+    /// <summary>
+    /// 
+    /// </summary>
     [Parameter]
     public virtual int DurationEnter { get; set; } = 400;
 
+    /// <summary>
+    /// The Duration of exiting animation.
+    /// </summary>
     [Parameter]
     public virtual int DurationExit { get; set; } = 400;
 
+    /// <summary>
+    ///  Is the animation enabled.
+    /// </summary>
     [Parameter]
     public bool? In { get; set; }
 
+    /// <summary>
+    ///  Whether it is currently animated.
+    /// </summary>
     public bool IsAnimating { get; private set; }
 
+    /// <summary>
+    /// The current transition state.
+    /// </summary>
     public TransitionState TransitionState { get; private set; } = TransitionState.Exited;
 
     protected override void OnAfterRender(bool firstRender) {
