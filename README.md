@@ -134,6 +134,28 @@ Exactly how a list item animates is up to the individual transition component.
 This means you can mix and match animations across different list items.
 
 ```TransitionGroup``` Component requires unique ```@key``` field.
+The ```Transition``` Component to be animated must be placed directly under the ```TransitionGroup```.
+It won't work if you wrap it in a ```div``` or other component.
+
+OK
+```razor
+<TransitionGroup>
+    @foreach(var item in items) {
+       <HogeTransition @key="item" />
+    }
+</TransitionGroup>
+```
+
+Failed
+```razor
+<TransitionGroup>
+    @foreach(var item in items) { 
+        <div @key="item">
+            <HogeTransition @key="item" />
+        </div>
+    }
+</TransitionGroup>
+```
 
 [Sample code in Demo is here](./samples/BlazorTransitionGroup.Samples/Demo/TransitionDemo.razor)
 
