@@ -1,4 +1,4 @@
-﻿# Blazor Transition Group
+# Blazor Transition Group
 
 Exposes simple components useful for defining entering and exiting transitions. 
 it does not animate styles by itself. Instead it exposes transition stages, manages classes and group elements and manipulates the DOM in useful ways, making the implementation of actual visual transitions much easier.
@@ -100,9 +100,22 @@ Inherits ```BlazorTransitionGroup.Transition``` and override razor template as B
     }
 }
 
-
-
 ```
+
+### Public API Reference
+| Name                | Type            | Category            | Default                | Description                                                 |
+|---------------------|-----------------|---------------------|------------------------|-------------------------------------------------------------|
+| ChildContent        | RenderFragment? | Component Attribute | null                   | The Render fragment for child content.                      |
+| TransitionBegan     | EventCallback   | Component Attribute | ---                    | The event callback that fired when Transition is Began.     |
+| TransitionCompleted | EventCallback   | Component Attribute | ---                    | The event callback that fired when Transition is Completed. |
+| Delay               | int             | Component Attribute | 0                      | The milliseconds of deley time that animation begin.        |
+| DurationEnter       | int             | Component Attribute | 400                    | The Duration of entering animation.                         |
+| DurationExit        | int             | Component Attribute | 400                    | The Duration of exiting animation.                          |
+| In                  | bool?           | Component Attribute | null                   | Is the animation enabled.                                   |
+| IsAnimating         | bool            | Property            | false                  | Whether it is currently animated.                           |
+| TransitionState     | TransitionState | Property            | TransitionState.Exited | The current transition state.                               |
+| Dispose             | void Dispose()  | Method              | ---                    | Dispose current context.                                    |
+
 
 ### TransitionGroup
 
@@ -186,6 +199,11 @@ This means you can mix and match animations across different list items.
 
 ```
 
+### Public API Reference
+| Name          | Type               | Description                                                         |  
+| ------------- | ------------------ | ------------------------------------------------------------------- |
+| ChildContent  | RenderFragment?    | The render fragment for ChildContent.                               |
+
 ### TransitionBase
 
 Another option to implements transition is to inherit ```TransitionBase```.
@@ -244,6 +262,10 @@ Don't forget to specify the Key as a Transition Attribute.
 }
 
 ```
+### Public API Reference
+| Name          | Type       | Description                                                         |  
+| ------------- | ---------- | ------------------------------------------------------------------- |
+| Key           | object?    | Gets or sets the key property to detect that should play animation. |
 
 # License
 Designed with ♥ by le-nn. Licensed under the MIT License.
