@@ -1,0 +1,41 @@
+﻿@using BlazorTransitionGroup
+
+@inherits TransitionBase
+
+<Transition Key="Key" Context="transitionState" In="true">
+    <div style="@(GetActualStyle(transitionState))" class="@Class">
+        @ChildContent
+    </div>
+</Transition>
+
+@code {
+    string GetActualStyle(TransitionState state) {
+        var (x, opacity) = (GetX(state), GetOpacity(state));
+        return $"opacity: {opacity};transform:translateX({x});transition:opacity {Duration / 2}ms ease-in-out,transform {Duration}ms ease-in-out;{Style}";
+    }
+
+    string GetOpacity(TransitionState state) {
+        return state switch {
+            TransitionState.Entering or TransitionState.Entered => "1",
+            _ => "0",
+        };
+    }
+
+    double Duration => 800;
+
+    string GetX(TransitionState state) {
+        return state switch {
+            TransitionState.Entering or TransitionState.Entered => "0%",
+            _ => "-50%",
+        };
+    }
+
+    [Parameter]
+    public string? Style { get; set; }
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

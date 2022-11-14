@@ -1,0 +1,20 @@
+﻿@page "/counter"
+@using BlazorTransitionGroup.Samples.Demo
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<GrowTransition Key="currentCount" In="true">
+    <p class="p-4 bg-opacity-10 bg-dark rounded-3 ">Current count: @currentCount</p>
+</GrowTransition>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount() {
+        currentCount++;
+    }
+}

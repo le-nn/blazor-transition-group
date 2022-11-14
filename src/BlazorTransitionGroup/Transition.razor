@@ -1,0 +1,144 @@
+﻿@using BlazorTransitionGroup;
+@using BlazorTransitionGroup.Internal;
+
+@implements IDisposable
+@inherits TransitionBase
+
+@ChildContent?.Invoke(TransitionState)
+
+@code {
+    IDisposable? _subscription;
+    CancellationTokenSource? _cancellationTokenSource;
+    bool _lastIsIn;
+    bool _currentIn;
+    object? _lastKey;
+
+    [CascadingParameter]
+    TransitionGroupContext? AnimatableComponentContext { get; set; }
+
+    [Parameter]
+    public RenderFragment<TransitionState>? ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback TransitionBegan { get; set; }
+
+    [Parameter]
+    public EventCallback TransitionCompleted { get; set; }
+
+    [Parameter]
+    public virtual int Delay { get; set; } = 0;
+
+    [Parameter]
+    public virtual int DurationEnter { get; set; } = 400;
+
+    [Parameter]
+    public virtual int DurationExit { get; set; } = 400;
+
+    [Parameter]
+    public bool? In { get; set; }
+
+    public bool IsAnimating { get; private set; }
+
+    public TransitionState TransitionState { get; private set; } = TransitionState.Exited;
+
+    protected override void OnAfterRender(bool firstRender) {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender && AnimatableComponentContext is not null && Key is not null) {
+            _subscription = AnimatableComponentContext.SubscribeAnimationRequested(
+                Key,
+                () => _ = HandleRemoveAnimationRequested()
+            );
+        }
+
+        if (_lastKey is null && Key is not null) {
+            _lastKey = Key;
+        }
+    }
+
+    protected override void OnInitialized() {
+        base.OnInitialized();
+        if (AnimatableComponentContext is not null) {
+            _ = Animate(true);
+        }
+    }
+
+    protected override async void OnParametersSet() {
+        // When In changed.
+        if (In is bool @in && _lastIsIn != @in) {
+            _lastIsIn = @in;
+            await Animate(@in);
+        }
+
+        // When key changed.
+        if (_lastKey is not null && _lastKey.Equals(Key) is false) {
+            _lastKey = Key;
+            // if in currentry
+            if (_currentIn) {
+                await Animate(false);
+                await Animate(true);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Execute Component unmount animation.
+    /// </summary>
+    /// <returns>The async context.</returns>
+    async Task HandleRemoveAnimationRequested() {
+        if (Key is null || AnimatableComponentContext is null) {
+            return;
+        }
+
+        await Animate(false);
+
+        AnimatableComponentContext.RequestTransitionGroupStateHasChanged();
+    }
+
+    async Task Animate(bool isIn) {
+        _currentIn = isIn;
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource = new();
+
+        try {
+            if (Key is not null) {
+                AnimatableComponentContext?.BeginAnimation(Key);
+            }
+
+            await TransitionBegan.InvokeAsync();
+            IsAnimating = true;
+
+            if (isIn) {
+                await Task.Delay(Math.Max(10, Delay), _cancellationTokenSource.Token);
+                TransitionState = TransitionState.Entering;
+                StateHasChanged();
+
+                await Task.Delay(DurationEnter, _cancellationTokenSource.Token);
+                TransitionState = TransitionState.Entered;
+                StateHasChanged();
+            }
+            else {
+                await Task.Delay(Math.Max(10, Delay), _cancellationTokenSource.Token);
+                TransitionState = TransitionState.Exiting;
+                StateHasChanged();
+
+                await Task.Delay(DurationExit, _cancellationTokenSource.Token);
+                TransitionState = TransitionState.Exited;
+                StateHasChanged();
+            }
+
+            IsAnimating = true;
+            await TransitionCompleted.InvokeAsync();
+            if (Key is not null) {
+                AnimatableComponentContext?.EndAnimation(Key);
+            }
+        }
+        catch (TaskCanceledException) {
+            ; // noop
+        }
+    }
+
+    public void Dispose() {
+        _subscription?.Dispose();
+    }
+}

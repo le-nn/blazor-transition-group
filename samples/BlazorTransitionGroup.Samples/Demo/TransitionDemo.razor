@@ -1,0 +1,57 @@
+﻿@using BlazorTransitionGroup
+
+<TransitionGroup>
+    @foreach (var (i, text, id) in _items) {
+        @if (i % 2 is 0) {
+            <GrowTransition @key="@($"{text}-{id}")" Context="state">
+                <div class="item d-flex p-3 align-items-center shadow mt-3 rounded-3 bg-white">
+                    <button class="btn btn-danger" @onclick="@(() => Remove((i, text, id)))">
+                        <i class="oi oi-trash" />
+                    </button>
+                    <div class="p-1 mx-3" style="width:100px;">@state</div>
+                    <div class="p-1 mx-3">@text</div>
+                </div>
+            </GrowTransition>
+        }
+        else {
+            <SlideTransition @key="@($"{text}-{id}")">
+                <div class="item d-flex p-3 align-items-center shadow mt-3 rounded-3 bg-white">
+                    <button class="btn btn-danger" @onclick="@(() => Remove((i, text, id)))">
+                        <i class="oi oi-trash" />
+                    </button>
+                    <div class="p-1 mx-3" style="width:100px;"></div>
+                    <div class="p-1 mx-3">@text</div>
+                </div>
+            </SlideTransition>
+        }
+    }
+</TransitionGroup>
+
+<div class="d-flex mt-4">
+    <input @bind-value="_text " />
+    <button class="btn btn-primary" @onclick="Add"> ADD</button>
+</div>
+
+@code {
+    string _text = "";
+    int _i = 3;
+
+    List<(int Index, string Text, Guid Key)> _items = new() {
+        (0, "item 1", Guid.NewGuid()),
+        (1, "item 2", Guid.NewGuid()),
+        (2, "item 3", Guid.NewGuid()),
+    };
+
+    void Add() {
+        if (string.IsNullOrWhiteSpace(_text)) {
+            return;
+        }
+
+        _items.Add((_i++, _text, Guid.NewGuid()));
+        _text = "";
+    }
+
+    void Remove((int, string, Guid) text) {
+        _items.Remove(text);
+    }
+}
