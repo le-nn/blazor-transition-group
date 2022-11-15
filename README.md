@@ -1,6 +1,6 @@
 # Blazor Transition Group
 
-English/[日本語](https://zenn.dev/remrem/articles/3e13d64bcba6b5)
+English / [日本語](https://zenn.dev/remrem/articles/3e13d64bcba6b5)
 
 Exposes simple components useful for defining entering and exiting transitions. 
 it does not animate styles by itself. Instead it exposes transition stages, manages classes and group elements and manipulates the DOM in useful ways, making the implementation of actual visual transitions much easier.
