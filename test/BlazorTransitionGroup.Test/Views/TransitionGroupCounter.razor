@@ -1,0 +1,21 @@
+﻿@using BlazorTransitionGroup.Test.Views.Comopnents
+
+<TransitionGroup>
+    @foreach(var item in _items) {
+        <GrowTransition @key="item" Key="item" In="true">
+            <Counter />
+        </GrowTransition>
+    }
+
+    @foreach (var item in _items) {
+        <GrowTransition @key="item" Key="item" In="true">
+            <FetchData />
+        </GrowTransition>
+    }
+</TransitionGroup>
+
+@code {
+    int[] _items = new[] {
+        1,2,3,4,5,6,7,8,9,10
+    };
+}

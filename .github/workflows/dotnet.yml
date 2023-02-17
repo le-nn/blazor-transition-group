@@ -13,9 +13,15 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 7.0.x
+
       # Generate the website
       - name: Install wasm tool
         run: dotnet workload install wasm-tools
+
+      - name: Build and Test
+        run: | 
+            dotnet build -c Release
+            dotnet test
 
       # Generate the website
       - name: Publish

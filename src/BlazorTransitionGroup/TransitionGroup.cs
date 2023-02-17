@@ -102,6 +102,7 @@ public class TransitionGroup : ComponentBase, IDisposable {
 #endif
     }
 
+
     void BuildContent(RenderTreeBuilder builder, ref int seq, RenderFragment childContent) {
         builder.OpenRegion(seq++);
         builder.OpenComponent<CascadingValue<TransitionGroupContext>>(seq++);

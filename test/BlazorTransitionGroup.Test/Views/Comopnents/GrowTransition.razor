@@ -1,0 +1,47 @@
+﻿@using BlazorTransitionGroup
+
+@inherits Transition
+
+<div style="@ActualStyle" class="@Class">
+    @ChildContent?.Invoke(TransitionState)
+</div>
+
+@code {
+    string ActualStyle => $"opacity: {Opacity};transform:scale({Size});transition:opacity {Duration / 2}ms ease-in-out,transform {Duration}ms ease-in-out;{Style}";
+
+    string Opacity => TransitionState switch {
+        TransitionState.Entering or TransitionState.Entered => "1",
+        _ => "0",
+    };
+
+    string Size => TransitionState switch {
+        TransitionState.Entering or TransitionState.Entered => "1",
+        _ => "0",
+    };
+
+    double Duration => TransitionState switch {
+        TransitionState.Entering or TransitionState.Entered => DurationEnter,
+        _ => DurationExit,
+    };
+
+    string HeightStyle => TransitionState switch {
+        TransitionState.Entering or TransitionState.Entered => "100%",
+        _ => "0%",
+    };
+
+    [Parameter]
+    public string Height { get; set; } = "auto";
+
+    [Parameter]
+    public string Width { get; set; } = "auto";
+
+    [Parameter]
+    public string? Style { get; set; }
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    protected override void OnParametersSet() {
+        base.OnParametersSet();
+    }
+}
