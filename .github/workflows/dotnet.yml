@@ -29,6 +29,7 @@ jobs:
 
       # Deploy the site
       - name: Deploy
+        if: (github.event_name == 'push')
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
