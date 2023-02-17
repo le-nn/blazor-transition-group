@@ -23,24 +23,24 @@ struct Frame {
     [FieldOffset(0)] RenderFrame _renderFrame;
 
     // ref
-    [FieldOffset(4)] Action<ElementReference> _lementReferenceCaptureAction;
-    [FieldOffset(4)] Action<object> _componentReferenceCaptureAction;
+    [FieldOffset(8)] Action<ElementReference> _lementReferenceCaptureAction;
+    [FieldOffset(8)] Action<object> _componentReferenceCaptureAction;
 
     // component and element
-    [FieldOffset(4)] object? _key;
+    [FieldOffset(8)] object? _key;
 
     // component
-    [FieldOffset(12)] Type _type;
-    [FieldOffset(20)] bool _isAppendKey;
+    [FieldOffset(16)] Type _type;
+    [FieldOffset(24)] bool _isAppendKey;
 
     // element
-    [FieldOffset(12)] string _name;
+    [FieldOffset(16)] string _name;
 
     // attribute
-    [FieldOffset(20)] RenderTreeFrame _renderTreeFrame;
+    [FieldOffset(24)] RenderTreeFrame _renderTreeFrame;
 
     // text content
-    [FieldOffset(4)] string _text;
+    [FieldOffset(8)] string _text;
 
     public RenderFrame RenderFrame {
         get => _renderFrame;
@@ -89,7 +89,7 @@ struct Frame {
 };
 
 class RenderFrameBuilder {
-    readonly List<Frame> frames = new();
+    readonly List<Frame> _frames = new();
 
     public object Key { get; }
 
@@ -100,11 +100,11 @@ class RenderFrameBuilder {
     }
 
     public void Add(Frame frame) {
-        frames.Add(frame);
+        _frames.Add(frame);
     }
 
     public void RenderChild(ref int sequence, RenderTreeBuilder builder) {
-        foreach (var frame in frames) {
+        foreach (var frame in _frames) {
             switch (frame.RenderFrame) {
                 case RenderFrame.OpenElement: {
                         builder.OpenElement(sequence++, frame.Name);

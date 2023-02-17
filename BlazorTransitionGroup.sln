@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{DED0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTransitionGroup.Samples", "samples\BlazorTransitionGroup.Samples\BlazorTransitionGroup.Samples.csproj", "{1D040D49-63CB-4FB3-9E80-F6629F0D1978}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5CC81634-AAA2-4B66-BBA5-6A1822D4E30F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorTransitionGroup.Test", "test\BlazorTransitionGroup.Test\BlazorTransitionGroup.Test.csproj", "{4EC716FF-E780-4E12-975C-980FBA8A6FE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,10 @@ Global
 		{1D040D49-63CB-4FB3-9E80-F6629F0D1978}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D040D49-63CB-4FB3-9E80-F6629F0D1978}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D040D49-63CB-4FB3-9E80-F6629F0D1978}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EC716FF-E780-4E12-975C-980FBA8A6FE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EC716FF-E780-4E12-975C-980FBA8A6FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EC716FF-E780-4E12-975C-980FBA8A6FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EC716FF-E780-4E12-975C-980FBA8A6FE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,6 +48,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A338682A-10AD-4730-902C-5592461018BA} = {FB2224E5-D7B3-4A7A-8DE1-8324C6F0EED9}
 		{1D040D49-63CB-4FB3-9E80-F6629F0D1978} = {DED09039-8ADC-4855-9B8C-98B30B085A80}
+		{4EC716FF-E780-4E12-975C-980FBA8A6FE3} = {5CC81634-AAA2-4B66-BBA5-6A1822D4E30F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {485255F0-3B25-4DAD-883D-35AB220A7D09}

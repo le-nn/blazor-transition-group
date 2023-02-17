@@ -1,0 +1,15 @@
+﻿@page "/counter"
+
+<BlazorTransitionGroup.Test.Views.Comopnents.CounterView CurrentCount="currentCount" />
+
+<p class="p-4 bg-opacity-10 bg-dark rounded-3 ">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount() {
+        currentCount++;
+    }
+}
