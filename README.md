@@ -96,10 +96,6 @@ Inherits ```BlazorTransitionGroup.Transition``` and override razor template as B
 
     [Parameter]
     public string? Class { get; set; }
-
-    protected override void OnParametersSet() {
-        base.OnParametersSet();
-    }
 }
 
 ```
