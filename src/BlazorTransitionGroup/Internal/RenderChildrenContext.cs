@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BlazorTransitionGroup.Internal;
+﻿namespace BlazorTransitionGroup.Internal;
 
 class RenderChildrenContext {
     public Dictionary<object, int> Keys = new();
@@ -30,7 +24,7 @@ class RenderChildrenContext {
 
     void UpdateKeys() {
         var keys = new Dictionary<object, int>();
-        int i = 0;
+        var i = 0;
         foreach (var item in Sequence) {
             if (item.Key is not null)
                 keys.TryAdd(item.Key, i++);

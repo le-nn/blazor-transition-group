@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.RenderTree;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace BlazorTransitionGroup;
@@ -12,9 +11,9 @@ namespace BlazorTransitionGroup;
 /// </summary>
 public class TransitionGroup : ComponentBase, IDisposable {
     RenderChildrenContext? _lastContext;
-    TransitionGroupContext _animatableComponentContext = new();
-    ThrottledExecutor<byte> _executor = new();
-    IDisposable _subscription;
+    readonly TransitionGroupContext _animatableComponentContext = new();
+    readonly ThrottledExecutor<byte> _executor = new();
+    readonly IDisposable _subscription;
 
     /// <summary>
     /// The render fragment for ChildContent.
@@ -38,7 +37,7 @@ public class TransitionGroup : ComponentBase, IDisposable {
         var sw = Stopwatch.StartNew();
 #endif
 
-        int seq = 0;
+        var seq = 0;
         var subBuilder = new RenderTreeBuilder();
         subBuilder.AddContent(0, ChildContent);
 
@@ -121,8 +120,8 @@ public class TransitionGroup : ComponentBase, IDisposable {
         var closeElementMap = new Dictionary<int, Queue<RenderTreeFrameType>>();
         var cacheSequence = new List<RenderFrameBuilder>();
         RenderFrameBuilder? currentRenderChild = null;
-        int depth = 0;
-        int cursor = 0;
+        var depth = 0;
+        var cursor = 0;
 
         foreach (var frame in frames.Array.Take(frames.Count)) {
             if (closeElementMap.TryGetValue(cursor, out var frameTypes)) {
@@ -152,7 +151,7 @@ public class TransitionGroup : ComponentBase, IDisposable {
                             cacheSequence.Add(currentRenderChild);
                         }
 
-                        int index = cursor + frame.ElementSubtreeLength;
+                        var index = cursor + frame.ElementSubtreeLength;
                         if (closeElementMap.ContainsKey(index)) {
                             closeElementMap[index].Enqueue(RenderTreeFrameType.Element);
                         }
@@ -177,7 +176,7 @@ public class TransitionGroup : ComponentBase, IDisposable {
                             cacheSequence.Add(currentRenderChild);
                         }
 
-                        int index = cursor + frame.ComponentSubtreeLength;
+                        var index = cursor + frame.ComponentSubtreeLength;
                         if (closeElementMap.ContainsKey(index)) {
                             closeElementMap[index].Enqueue(RenderTreeFrameType.Component);
                         }
@@ -187,7 +186,7 @@ public class TransitionGroup : ComponentBase, IDisposable {
                             closeElementMap.Add(index, q);
                         }
 
-                        var isAppendKey = depth == 0 ;
+                        var isAppendKey = depth == 0;
                         currentRenderChild!.Add(new() {
                             RenderFrame = RenderFrame.OpenComponent,
                             Key = frame.ComponentKey,
