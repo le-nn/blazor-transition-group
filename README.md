@@ -298,8 +298,6 @@ There is a fundamental difference between ReactNode in React and RenderFragment 
 Blazor does not have a way to directly handle RenderTree items like ReactNode does.
 This is because Blazor's RenderFragment is a Delegate.
 
-Translated with www.DeepL.com/Translator (free version)
-
 React
 ```jsx
 function Component(props) {
