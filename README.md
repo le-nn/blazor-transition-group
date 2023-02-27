@@ -336,9 +336,11 @@ The node where the animation is taking place (the child component) will be resto
 The node that is animating (child component) can restore the Frame from the cache and wait until the animation is finished.
 
 Wrapper to restore deleted nodes (RenderFrameBuilder)
+
 https://github.com/le-nn/blazor-transition-group/blob/main/src/BlazorTransitionGroup/Internal/RenderFrameBuilder.cs#L91
 
 Function to create RenderFrameBuilder
+
 https://github.com/le-nn/blazor-transition-group/blob/main/src/BlazorTransitionGroup/TransitionGroup.cs#L120
 
 Currently, transition cannot work unless it is placed directly under TransitionGroup, so it is not possible to completely reproduce react-transition-group.
