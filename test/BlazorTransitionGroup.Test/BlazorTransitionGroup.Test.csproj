@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFrameworks>net7.0</TargetFrameworks>
+        <TargetFrameworks>net8.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
@@ -10,7 +10,7 @@
 
     <ItemGroup>
         <PackageReference Include="bunit" Version="1.16.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>
