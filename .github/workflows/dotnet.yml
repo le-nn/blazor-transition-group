@@ -44,7 +44,7 @@ jobs:
 
       # Generate the website
       - name: Publish Sample Page
-        run: dotnet publish ./samples/BlazorTransitionGroup.Samples/BlazorTransitionGroup.Samples.csproj -c Release -p:GHPages=true
+        run: dotnet publish ./samples/BlazorTransitionGroup.Samples/BlazorTransitionGroup.Samples.csproj -c Release -f net8.0 -p:GHPages=true
 
       # Deploy the site
       - name: Deploy Github Pages
