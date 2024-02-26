@@ -2,10 +2,12 @@
     <PropertyGroup>
         <TargetFrameworks>net8.0;net7.0</TargetFrameworks>
         <LangVersion>latest</LangVersion>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="*" PrivateAssets="All" />
+        <None Include="../../README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
     <PropertyGroup>
